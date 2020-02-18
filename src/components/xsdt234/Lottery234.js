@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   Text,
   WhiteSpace,
@@ -10,9 +9,10 @@ import {
   Toast,
   ActivityIndicator
 } from "antd-mobile";
-
+import { ColorButton } from '../../utils/ColorBase';
 import styles from "./lottery234.less";
 import styles1 from "../Main.css";
+import styles2 from "../Main.css";
 import CustomeTrashIcon from "../../utils/CustomeTrashIcon";
 import {
   stringToNumberFormat,
@@ -31,7 +31,7 @@ if (isIPhone) {
 }
 
 const amountFix = 20000;
-const numberInit = ["", "", ""];
+const numberInit = ["", "", "", ""];
 
 class Lottery234 extends React.Component {
   constructor(props) {
@@ -66,13 +66,11 @@ class Lottery234 extends React.Component {
       eAmountText: stringToNumberFormat(amountFix),
       eAmount: amountFix,
       eIsCheck: false,
-      fNumber: numberInit,
-      fAmountText: stringToNumberFormat(amountFix),
-      fAmount: amountFix,
       modalType: "",
       modal: false,
       totalAmount: 0,
-      productID: 7
+      productID: 7, 
+      bagitem: 4
     };
   }
 
@@ -110,195 +108,112 @@ class Lottery234 extends React.Component {
       }
     }
   }
-
-  renderRow = type => {
-    let number;
-    switch (type) {
-      case "A":
-        number = this.state.aNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      case "B":
-        number = this.state.bNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      case "C":
-        number = this.state.cNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      case "D":
-        number = this.state.dNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      case "E":
-        number = this.state.eNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      case "F":
-        number = this.state.fNumber.map((item, index, data) => {
-          return (
-            <Text
-              key={index}
-              className={
-                index == 0
-                  ? styles.text_number_circle
-                  : index == 1
-                  ? styles.text_number_circle_sc
-                  : styles.text_number_circle_th
-              }
-              onClick={this.showModal("modal", type)}
-            >
-              {item}
-            </Text>
-          );
-        });
-        break;
-      default:
-        break;
-    }
-    return (
-      <div
-        className={styles.row_number}
-        style={{
-          borderBottom: "1px",
-          borderColor: "#c8cacb",
-          borderBottomStyle: "solid",
-          paddingBottom: 7
-        }}
-      >
-        <Text
-          className={styles.text_header}
-          style={{ float: "left", width: 40 }}
-        >
-          {type}
-        </Text>
-        <div style={{ width: "100%" }}>{number}</div>
-        {this.isCheckNumber(type)}
-      </div>
-    );
-  };
-
-  isCheckNumber = type => {
+  isCheckNumber = (type) => {
     let showType = null;
     switch (type) {
-      case "A":
-        showType =
-          this.state.aIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      case "B":
-        showType =
-          this.state.bIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      case "C":
-        showType =
-          this.state.cIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      case "D":
-        showType =
-          this.state.dIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      case "E":
-        showType =
-          this.state.eIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      case "F":
-        showType =
-          this.state.fIsCheck === true
-            ? this.buttonAfterNumber(type)
-            : this.buttonBeforeNumber(type);
-        break;
-      default:
-        showType = this.buttonBeforeNumber(type);
-        break;
+        case "A":
+            showType = this.state.aIsCheck === true ? this.buttonAfterNumber(type) : this.buttonBeforeNumber(type);
+            break;
+        case "B":
+            showType = this.state.bIsCheck === true ? this.buttonAfterNumber(type) : this.buttonBeforeNumber(type);
+            break;
+        case "C":
+            showType = this.state.cIsCheck === true ? this.buttonAfterNumber(type) : this.buttonBeforeNumber(type);
+            break;
+        case "D":
+            showType = this.state.dIsCheck === true ? this.buttonAfterNumber(type) : this.buttonBeforeNumber(type);
+            break;
+        case "E":
+            showType = this.state.eIsCheck === true ? this.buttonAfterNumber(type) : this.buttonBeforeNumber(type);
+            break;
+        default:
+            showType = this.buttonBeforeNumber(type);
+            break;
     }
-    return showType;
-  };
-
+    return (
+        showType
+    )
+  }
+  initaNumber = () => {
+    const number = this.state.aNumber.map((item, index, data) => {
+        return (
+            <Text key={index} className={styles.text_number_circle} onClick={this.showModal("modal", "A")}>{item}</Text>
+        );
+    });
+    return (
+        <div className={styles.row_number}>
+            <Text className={styles.text_header} style={{ float: "left", width: 40 }}>A</Text>
+            <div style={{ width: "100%" }}>
+                {number}
+            </div>
+            {this.isCheckNumber('A')}
+        </div>
+    );
+  }
+  initbNumber = () => {
+    const number = this.state.bNumber.map((item, index, data) => {
+        return (
+            <Text key={index} className={styles.text_number_circle} onClick={this.showModal("modal", "B")}>{item}</Text>
+        );
+    });
+    return (
+        <div className={styles.row_number}>
+            <Text className={styles.text_header} style={{ float: "left", width: 40 }}>B</Text>
+            <div style={{ width: "100%" }}>
+                {number}
+            </div>
+            {this.isCheckNumber('B')}
+        </div>
+    );
+  }
+  initcNumber = () => {
+    const number = this.state.cNumber.map((item, index, data) => {
+        return (
+            <Text key={index} className={styles.text_number_circle} onClick={this.showModal("modal", "C")}>{item}</Text>
+        );
+    });
+    return (
+        <div className={styles.row_number}>
+            <Text className={styles.text_header} style={{ float: "left", width: 40 }} >C</Text>
+            <div style={{ width: "100%" }}>
+                {number}
+            </div>
+            {this.isCheckNumber('C')}
+        </div>
+    );
+  }
+  initdNumber = () => {
+    const number = this.state.dNumber.map((item, index, data) => {
+        return (
+            <Text key={index} className={styles.text_number_circle} onClick={this.showModal("modal", "D")}>{item}</Text>
+        );
+    });
+    return (
+        <div className={styles.row_number}>
+            <Text className={styles.text_header} style={{ float: "left", width: 40 }}>D</Text>
+            <div style={{ width: "100%" }}>
+                {number}
+            </div>
+            {this.isCheckNumber('D')}
+        </div>
+    );
+  }
+  initeNumber = () => {
+    const number = this.state.eNumber.map((item, index, data) => {
+        return (
+            <Text key={index} className={styles.text_number_circle} onClick={this.showModal("modal", "E")}>{item}</Text>
+        );
+    });
+    return (
+        <div className={styles.row_number}>
+            <Text className={styles.text_header} style={{ float: "left", width: 40 }}>E</Text>
+            <div style={{ width: "100%" }}>
+                {number}
+            </div>
+            {this.isCheckNumber('E')}
+        </div>
+    );
+  }
   buttonBeforeNumber = type => {
     return (
       <div className={styles.random}>
@@ -306,7 +221,7 @@ class Lottery234 extends React.Component {
           type="warning"
           size="small"
           className={styles.btnRandomRow}
-          onClick={() => this.randomDT123(type)}
+          onClick={() => this.randomDT234(type)}
         >
           <Text>TC</Text>
         </Button>
@@ -361,25 +276,19 @@ class Lottery234 extends React.Component {
       case "E":
         showType = <Text>{this.state.eAmountText}</Text>;
         break;
-      case "F":
-        showType = <Text>{this.state.fAmountText}</Text>;
-        break;
       default:
         showType = "Mệnh giá";
         break;
     }
     return showType;
   };
-
-  showModal = (key, type) => e => {
-    console.log(type);
+  showModal = (key, type) => (e) => {
     e.preventDefault();
     this.setState({
-      modalType: type,
-      [key]: true
+        modalType: type,
+        [key]: true
     });
-  };
-
+  }
   renderSystem = () => {
     return this.state.opSystem.map((item, index, data) => {
       return (
@@ -429,210 +338,226 @@ class Lottery234 extends React.Component {
     });
   };
 
-  randomNumber = ordinal => {
-    if (ordinal == 0) {
-      return Math.floor(Math.random() * 10);
-    } else if (ordinal == 1) {
-      return Math.floor(Math.random() * 100);
-    } else {
-      return Math.floor(Math.random() * 1000);
-    }
+  randomNumber = (except = []) => {
+    let num = (Math.floor(Math.random() * 45) + 1);
+    return except.some(x => x === num) ? this.randomNumber(except) : num;
   };
 
-  randomDT123 = type => {
+  randomDT234 = (type) => {
     let number = [];
+    let numbertmp = [];
+    let _totalAmount = 0;
     switch (type) {
-      case "A":
+        case "A":
+            number = this.state.aNumber.map((item, index, data) => {
+                let rannumber = this.randomNumber(numbertmp);
+                numbertmp.push(rannumber);
+                return rannumber;
+            });
+            // this.setState({ aNumber: number.sort((a, b) => a - b), aIsCheck: true })
+            this.setState({
+              aNumber: number,
+              aIsCheck: true,
+              totalAmount:
+                this.state.totalAmount + this.state.aAmount * this.state.system
+            }); 
+            break;
+        case "B":
+            number = this.state.bNumber.map(() => {
+                let rannumber = this.randomNumber(numbertmp);
+                numbertmp.push(rannumber);
+                return rannumber;
+            });
+            // this.setState({ bNumber: number.sort((a, b) => a - b), bIsCheck: true })
+            this.setState({
+              bNumber: number,
+              bIsCheck: true,
+              totalAmount:
+                this.state.totalAmount + this.state.bAmount * this.state.system
+            });
+            break;
+        case "C":
+            number = this.state.aNumber.map(() => {
+                let rannumber = this.randomNumber(numbertmp);
+                numbertmp.push(rannumber);
+                return rannumber;
+            });
+            // this.setState({ cNumber: number.sort((a, b) => a - b), cIsCheck: true })
+            this.setState({
+              cNumber: number,
+              cIsCheck: true,
+              totalAmount:
+                this.state.totalAmount + this.state.cAmount * this.state.system
+            });
+            break;
+        case "D":
+            number = this.state.dNumber.map(() => {
+                let rannumber = this.randomNumber(numbertmp);
+                numbertmp.push(rannumber);
+                return rannumber;
+            });
+            // this.setState({ dNumber: number.sort((a, b) => a - b), dIsCheck: true })
+            this.setState({
+              dNumber: number,
+              dIsCheck: true,
+              totalAmount:
+                this.state.totalAmount + this.state.dAmount * this.state.system
+            });
+            break;
+        case "E":
+            number = this.state.eNumber.map(() => {
+                let rannumber = this.randomNumber(numbertmp);
+                numbertmp.push(rannumber);
+                return rannumber;
+            });
+            // this.setState({ eNumber: number.sort((a, b) => a - b), eIsCheck: true })
+            this.setState({
+              eNumber: number,
+              eIsCheck: true,
+              totalAmount:
+                this.state.totalAmount + this.state.eAmount * this.state.system
+            });
+            break;
+    }
+  };
+  randomFast() {
+    let _totalAmount = 0;
+    let number = [];
+    let numbertmp = [];
+    if (!this.state.aIsCheck) {
         number = this.state.aNumber.map((item, index, data) => {
-          let _number = this.randomNumber(index);
-          if (index != 0) _number = padLeft(_number, index + 1, "0");
-          return _number;
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
         });
+        // _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length);
+        // this.setState({ totalAmount: _totalAmount, aNumber: number.sort((a, b) => a - b), aIsCheck: true })
+        _totalAmount = this.state.totalAmount + this.state.aAmount * this.state.system;
         this.setState({
           aNumber: number,
           aIsCheck: true,
-          totalAmount:
-            this.state.totalAmount + this.state.aAmount * this.state.system
+          totalAmount: _totalAmount
         });
-        break;
-      case "B":
+    }
+    else if (!this.state.bIsCheck) {
         number = this.state.bNumber.map((item, index, data) => {
-          let _number = this.randomNumber(index);
-          if (index != 0) _number = padLeft(_number, index + 1, "0");
-          return _number;
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
         });
-
+        // const _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length);
+        // this.setState({ totalAmount: _totalAmount, bNumber: number.sort((a, b) => a - b), bIsCheck: true })
+        _totalAmount = this.state.totalAmount + this.state.bAmount * this.state.system;
         this.setState({
           bNumber: number,
           bIsCheck: true,
-          totalAmount:
-            this.state.totalAmount + this.state.bAmount * this.state.system
+          totalAmount: _totalAmount
         });
-        break;
-      case "C":
+    }
+    else if (!this.state.cIsCheck) {
         number = this.state.cNumber.map((item, index, data) => {
-          let _number = this.randomNumber(index);
-          if (index != 0) _number = padLeft(_number, index + 1, "0");
-          return _number;
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
         });
-
+        // const _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length);
+        // this.setState({ totalAmount: _totalAmount, cNumber: number.sort((a, b) => a - b), cIsCheck: true })
+        _totalAmount = this.state.totalAmount + this.state.cAmount * this.state.system;
         this.setState({
           cNumber: number,
           cIsCheck: true,
-          totalAmount:
-            this.state.totalAmount + this.state.cAmount * this.state.system
+          totalAmount: _totalAmount
         });
-        break;
-      case "D":
+    }
+    else if (!this.state.dIsCheck) {
         number = this.state.dNumber.map((item, index, data) => {
-          let _number = this.randomNumber(index);
-          if (index != 0) _number = padLeft(_number, index + 1, "0");
-          return _number;
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
         });
-
+        // const _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length);
+        // this.setState({ totalAmount: _totalAmount, dNumber: number.sort((a, b) => a - b), dIsCheck: true })
+        _totalAmount = this.state.totalAmount + this.state.dAmount * this.state.system;
         this.setState({
           dNumber: number,
           dIsCheck: true,
-          totalAmount:
-            this.state.totalAmount + this.state.dAmount * this.state.system
+          totalAmount: _totalAmount
         });
-        break;
-      case "E":
+    }
+    else if (!this.state.eIsCheck) {
         number = this.state.eNumber.map((item, index, data) => {
-          let _number = this.randomNumber(index);
-          if (index != 0) _number = padLeft(_number, index + 1, "0");
-          return _number;
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
         });
+        // const _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length);
+        // this.setState({ totalAmount: _totalAmount, eNumber: number.sort((a, b) => a - b), eIsCheck: true })
+        _totalAmount = this.state.totalAmount + this.state.eAmount * this.state.system;
         this.setState({
           eNumber: number,
           eIsCheck: true,
-          totalAmount:
-            this.state.totalAmount + this.state.eAmount * this.state.system
+          totalAmount: _totalAmount
         });
-        break;
-    }
-  };
-
-  randomFast() {
-    let _totalAmount = 0;
-    if (!this.state.aIsCheck) {
-      let number = this.state.aNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-
-      _totalAmount =
-        this.state.totalAmount + this.state.aAmount * this.state.system;
-      this.setState({
-        aNumber: number,
-        aIsCheck: true,
-        totalAmount: _totalAmount
-      });
-    } else if (!this.state.bIsCheck) {
-      let number = this.state.bNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount =
-        this.state.totalAmount + this.state.bAmount * this.state.system;
-      this.setState({
-        bNumber: number,
-        bIsCheck: true,
-        totalAmount: _totalAmount
-      });
-    } else if (!this.state.cIsCheck) {
-      let number = this.state.cNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount =
-        this.state.totalAmount + this.state.cAmount * this.state.system;
-      this.setState({
-        cNumber: number,
-        cIsCheck: true,
-        totalAmount: _totalAmount
-      });
-    } else if (!this.state.dIsCheck) {
-      let number = this.state.dNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount =
-        this.state.totalAmount + this.state.dAmount * this.state.system;
-      this.setState({
-        dNumber: number,
-        dIsCheck: true,
-        totalAmount: _totalAmount
-      });
-    } else if (!this.state.eIsCheck) {
-      let number = this.state.eNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount =
-        this.state.totalAmount + this.state.eAmount * this.state.system;
-      this.setState({
-        eNumber: number,
-        eIsCheck: true,
-        totalAmount: _totalAmount
-      });
     }
   }
 
-  randomFastAll() {
+  randomAll() {
+    let number = [];
+    let numbertmp = [];
     let _totalAmount = this.state.totalAmount;
-
     if (!this.state.aIsCheck) {
-      let number = this.state.aNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount = this.state.aAmount * this.state.system;
-      this.setState({ aNumber: number, aIsCheck: true });
+        number = this.state.aNumber.map((item, index, data) => {
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
+        });
+        // this.setState({ aNumber: number.sort((a, b) => a - b), aIsCheck: true })
+        _totalAmount = this.state.aAmount * this.state.system;
+        this.setState({ aNumber: number, aIsCheck: true });
     }
     if (!this.state.bIsCheck) {
-      let number = this.state.bNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount += this.state.bAmount * this.state.system;
-      this.setState({ bNumber: number, bIsCheck: true });
+        number = this.state.bNumber.map((item, index, data) => {
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
+        });
+        // this.setState({ bNumber: number.sort((a, b) => a - b), bIsCheck: true })
+        _totalAmount += this.state.bAmount * this.state.system;
+        this.setState({ bNumber: number, bIsCheck: true });
     }
     if (!this.state.cIsCheck) {
-      let number = this.state.cNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount += this.state.cAmount * this.state.system;
-      this.setState({ cNumber: number, cIsCheck: true });
+        number = this.state.cNumber.map((item, index, data) => {
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
+        });
+        // this.setState({ cNumber: number.sort((a, b) => a - b), cIsCheck: true })
+        _totalAmount += this.state.cAmount * this.state.system;
+        this.setState({ cNumber: number, cIsCheck: true });
     }
     if (!this.state.dIsCheck) {
-      let number = this.state.dNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount += this.state.dAmount * this.state.system;
-      this.setState({ dNumber: number, dIsCheck: true });
+        number = this.state.dNumber.map((item, index, data) => {
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
+        });
+        // this.setState({ dNumber: number.sort((a, b) => a - b), dIsCheck: true })
+        _totalAmount += this.state.dAmount * this.state.system;
+        this.setState({ dNumber: number, dIsCheck: true });
     }
     if (!this.state.eIsCheck) {
-      let number = this.state.eNumber.map((item, index, data) => {
-        let _number = this.randomNumber(index);
-        if (index != 0) _number = padLeft(_number, index + 1, "0");
-        return _number;
-      });
-      _totalAmount += this.state.eAmount * this.state.system;
-      this.setState({ eNumber: number, eIsCheck: true });
+        number = this.state.eNumber.map((item, index, data) => {
+            let rannumber = this.randomNumber(numbertmp);
+            numbertmp.push(rannumber);
+            return rannumber;
+        });
+        // this.setState({ eNumber: number.sort((a, b) => a - b), eIsCheck: true })
+        _totalAmount += this.state.eAmount * this.state.system;
+        this.setState({ eNumber: number, eIsCheck: true });
     }
-    this.setState({ totalAmount: _totalAmount });
+    // const _totalAmount = this.state.totalAmount + (this.state.price * this.state.system.length) * 6;
+    this.setState({ totalAmount: _totalAmount })
+    // aNumber: number.sort((a, b) => a - b), aIsCheck: true , bNumber: number.sort((a, b) => a - b), bIsCheck: true , cNumber: number.sort((a, b) => a - b), cIsCheck: true ,dNumber: number.sort((a, b) => a - b), dIsCheck: true, eNumber: number.sort((a, b) => a - b), eIsCheck: true , fNumber: number.sort((a, b) => a - b), fIsCheck: true 
   }
 
   showAmount = param => {
@@ -825,6 +750,12 @@ class Lottery234 extends React.Component {
   modalNumberView = () => {
     return (
       <SelectNumber
+        // type={this.state.modalType}
+        // modal={this.state.modal}
+        // onValue={this.onPutValue}
+        // onClose={this.onCloseModal}
+        // onAccept={this.onAcceptModal}
+        value={this.state.bagitem}
         type={this.state.modalType}
         modal={this.state.modal}
         onValue={this.onPutValue}
@@ -929,7 +860,21 @@ class Lottery234 extends React.Component {
       this.props.onAccept(this.state);
     }
   }
-
+  RandomAllButton = () => {
+    if (this.state.bagitem !== 4) {
+        return (<div style={{ display: "none" }}></div>);
+    }
+    else if (this.state.aIsCheck === true || this.state.bIsCheck === true || this.state.cIsCheck === true || this.state.dIsCheck === true || this.state.eIsCheck === true) {
+        return (<Button style={{ background: ColorButton, color: "white", width: "100%", marginLeft: 8, marginRight: 8, marginBottom: 8, height: 40, lineHeight: 2 }} disabled={true}>
+            <Text>Chọn nhanh 5 dãy</Text>
+        </Button>);
+    }
+    else {
+        return (<Button style={{ background: ColorButton, color: "white", width: "100%", marginLeft: 8, marginRight: 8, marginBottom: 8, height: 40, lineHeight: 2 }} onClick={() => this.randomAll()}>
+            <Text>Chọn nhanh 5 dãy</Text>
+        </Button>);
+    }
+  }
   render() {
     return (
       <div className={styles1.content}>
@@ -942,14 +887,14 @@ class Lottery234 extends React.Component {
             <div>
               <img
                 className={styles1.div_img_dt}
-                src={require("../../assets/lottery_123.png")}
+                src={require("../../assets/lottery_234.png")}
                 alt=""
               />
             </div>
             <div className={styles1.div_border}></div>
             <div className={styles1.div_group_text}>
               <div className={styles1.div_text_amt}>
-                <span className={styles1.span_text}>x</span>40.000
+                <span className={styles1.span_text}>x</span>1.000
                 <span className={styles1.span_text}>lần</span>
               </div>
             </div>
@@ -967,12 +912,11 @@ class Lottery234 extends React.Component {
             background: "#FFF"
           }}
         >
-          {this.renderRow("A")}
-          {this.renderRow("B")}
-          {this.renderRow("C")}
-          {this.renderRow("D")}
-          {this.renderRow("E")}
-
+          {this.initaNumber()}
+          {this.initbNumber()}
+          {this.initcNumber()}
+          {this.initdNumber()}
+          {this.initeNumber()}
           <div className={styles1.select_system}>Chọn kỳ</div>
           <div className={styles1.tab}>{this.renderSystem()}</div>
           <Flex style={{ padding: 8 }}>
@@ -987,9 +931,11 @@ class Lottery234 extends React.Component {
         </div>
         <div
           className={styles1.buttonRandom}
-          onClick={() => this.randomFastAll()}
+          onClick={() => this.randomAll()}
         >
-          <div>CHỌN NHANH 5 DÃY</div>
+          <Flex>
+            {this.RandomAllButton()}
+          </Flex>
         </div>
         <div
           className={styles1.primary_btn}
@@ -998,6 +944,14 @@ class Lottery234 extends React.Component {
         >
           <div>ĐẶT VÉ</div>
         </div>
+        <div
+            className={styles2.tutorial}
+            onClick={() => this.props.onTutorial(this.state.tutorialKeno)}
+          >
+            <span style={{ borderBottom: "1px solid #4397f7" }}>
+              Hướng dẫn cách chơi
+            </span>
+          </div>
       </div>
     );
   }

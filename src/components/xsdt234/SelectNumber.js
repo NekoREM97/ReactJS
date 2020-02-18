@@ -1,212 +1,108 @@
-import React from "react";
-import { Modal, Flex, WingBlank, Text, Toast } from "antd-mobile";
-import styles from "./lottery234.less";
+import React from 'react';
+import { Modal, Flex, WingBlank, Text,Toast } from 'antd-mobile';
+import 'antd-mobile/dist/antd-mobile.css';
+import styles from '../../utils/mega645.less';
 
-const columns = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false
-];
 class SelectNumber extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data_column1: columns,
-      data_column2: columns,
-      data_column3: columns,
-      data_column4: columns,
-      data_column5: columns,
-      data_column6: columns
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.type !== prevProps.type) {
-      const dataNumber = this.props.onValue(this.props.type);
-      //   console.log(dataNumber);
-      if (dataNumber !== undefined && dataNumber[0] !== "") {
-        dataNumber.map((item, index, data) => {
-          if (index === 0) {
-            this.updateColumn(item, 1);
-          } else if (index === 1) {
-            this.updateColumn(item.substr(0, 1), 2);
-            this.updateColumn(item.substr(1, 1), 3);
-          } else {
-            this.updateColumn(item.substr(0, 1), 4);
-            this.updateColumn(item.substr(1, 1), 5);
-            this.updateColumn(item.substr(2, 1), 6);
-          }
-        });
-      } else {
-        this.setState({
-          data_column1: columns,
-          data_column2: columns,
-          data_column3: columns,
-          data_column4: columns,
-          data_column5: columns,
-          data_column6: columns
-        });
-      }
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false, false 
+            ]
+        }
     }
-  }
 
-  updateColumn = (value, position) => {
-    const fillData = columns.map((item, index, data) => {
-      return index == value ? true : false;
-    });
-    this.fillDataColumn(fillData, position);
-  };
+    componentDidUpdate(prevProps) {
 
-  initColumn = (column = [], position) => {
-    return column.map((item, index, data) => {
-      return (
-        <div
-          key={index}
-          className={
-            item
-              ? styles.select_modal_number_circle
-              : styles.modal_number_circle
-          }
-          onClick={() => this.onClickNumber(index, column, position)}
-        >
-          {index}
-        </div>
-      );
-    });
-  };
-
-  fillDataColumn = (data, position) => {
-    switch (position) {
-      case 1:
-        this.setState({ data_column1: data });
-        break;
-      case 2:
-        this.setState({ data_column2: data });
-        break;
-      case 3:
-        this.setState({ data_column3: data });
-        break;
-      case 4:
-        this.setState({ data_column4: data });
-        break;
-      case 5:
-        this.setState({ data_column5: data });
-        break;
-      case 6:
-        this.setState({ data_column6: data });
-        break;
-      default:
-        break;
+        if (this.props.type !== prevProps.type) {
+            const datatype = this.props.onValue(this.props.type);
+            const datanew = this.state.data.map((_item, _index, _data) => {
+                return datatype.some(x => x === _index + 1);
+            })
+            this.setState({ data: datanew })
+        }
     }
-  };
 
-  onClickNumber = (number, column = [], position) => {
-    const dataNew = column.map((item, index, data) => {
-      return index === number ? (item = !item) : false;
-    });
-
-    this.fillDataColumn(dataNew, position);
-  };
-
-  initView = () => {
-    return (
-      <div style={{ display: "flex" }}>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column1, 1)}
-        </div>
-        <div className={styles.colum_line}></div>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column2, 2)}
-        </div>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column3, 3)}
-        </div>
-        <div className={styles.colum_line}></div>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column4, 4)}
-        </div>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column5, 5)}
-        </div>
-        <div className={styles.column_modal}>
-          {" "}
-          {this.initColumn(this.state.data_column6, 6)}
-        </div>
-      </div>
-    );
-  };
-
-  checkData = (column = []) => {
-    return column.findIndex(item => {
-      return item === true;
-    });
-  };
-
-  ok() {
-    if (
-      this.checkData(this.state.data_column1) === -1 ||
-      this.checkData(this.state.data_column2) === -1 ||
-      this.checkData(this.state.data_column3) === -1 ||
-      this.checkData(this.state.data_column4) === -1 ||
-      this.checkData(this.state.data_column5) === -1 ||
-      this.checkData(this.state.data_column6) === -1
-    ) {
-      Toast.info(`Vui lòng chọn 6 số!`, 2);
-    } else {
-      const data = [
-        this.checkData(this.state.data_column1),
-        this.checkData(this.state.data_column2).toString() +
-          this.checkData(this.state.data_column3).toString(),
-        this.checkData(this.state.data_column4).toString() +
-          this.checkData(this.state.data_column5).toString() +
-          this.checkData(this.state.data_column6).toString()
-      ];
-      return this.props.onAccept("modal", data, this.props.type)();
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <Modal
-          className={styles.font}
-          visible={this.props.modal}
-          transparent
-          maskClosable={false}
-          onClose={this.props.onClose("modal")}
-          title={"Chọn dãy số dự thưởng"}
-          footer={[
-            {
-              text: "Đóng",
-              onPress: () => {
-                this.props.onClose("modal")();
-              }
-            },
-            {
-              text: "Đồng ý",
-              onPress: () => {
-                this.ok();
-              }
+    initView = () => {
+        const datanew = this.state.data.map((item, index, data) => {
+            if (index === data.length - 1) {
+                return (
+                    <Text key={index} className={item ? styles.select_modal_number_circle_last : styles.modal_number_circle_last} onClick={() => this.onClickNumber(index)}>{index + 1}</Text>
+                );
             }
-          ]}
-        >
-          <Flex>{this.initView()}</Flex>
-        </Modal>
-      </div>
-    );
-  }
+            else {
+                return (
+                    <Text key={index} className={item ? styles.select_modal_number_circle : styles.modal_number_circle} onClick={() => this.onClickNumber(index)}>{index + 1}</Text>);
+            } 
+        });
+        return (<div style={{
+            marginTop: 4,
+            marginBottom: 4,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center"
+        }}>
+            {datanew}
+        </div>);
+    }
+
+    onClickNumber = (number) => {
+        const datanew = this.state.data.map((item, index, data) => {
+            return index === number ? item = !item : item;
+        })
+        this.setState({ data: datanew })
+    }
+
+    accept = () => {
+        const numberselect = [];
+        this.state.data.map((item,index ) => {
+            if (item)
+                numberselect.push(index + 1)
+            return item;
+        })
+        if(numberselect.length === this.props.value){
+            return this.props.onAccept('modal', numberselect, this.props.type)();
+        }
+        else
+        {
+            new Promise(() => {
+                Toast.info(`Vui lòng chọn ${this.props.value} số!`, 2);
+            })
+        }
+    }
+
+    render() {
+        return (
+            <WingBlank>
+                <Modal
+                    className={styles.font}
+                    style={{ width: "100%", marginLeft: 16, marginRight: 16 }}
+                    visible={this.props.modal}
+                    transparent
+                    maskClosable={false}
+                    onClose={this.props.onClose('modal')}
+                    title="Chọn dãy số dự thưởng"
+                    footer={[
+                        { text: 'Đóng', onPress: () => { this.props.onClose('modal')() } },
+                        { text: 'Đồng ý', onPress: () => { this.accept() } }
+                    ]}
+                >
+                    <Flex style={{ border: "1px solid #E32E35" }}>
+                        {this.initView()}
+                    </Flex>
+                </Modal>
+            </WingBlank>
+        )
+    }
 }
 
 export default SelectNumber;
