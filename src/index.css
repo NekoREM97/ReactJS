@@ -1,0 +1,13 @@
+
+html, body, :global(#root) {
+  height: 100%;
+}
+.spin{
+  background-color:  rgba(0, 0, 0, 0.4);
+}
+.spe {
+  width: 60px;
+  height: 60px;
+}
+
+
