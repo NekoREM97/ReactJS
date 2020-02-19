@@ -902,7 +902,7 @@ class Lottery234 extends React.Component {
       this.state.dIsCheck ||
       this.state.eIsCheck
     ) {
-      this.props.onPayment(this.state);
+      this.props.onAccept(this.state);
     }
   }
   RandomAllButton = () => {
