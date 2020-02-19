@@ -20,8 +20,18 @@ function* getFee(data) {
     body: JSON.stringify(data)
   });
 }
+function* getTutorial(widthImg) {
+  return yield request(
+    "api/RulesReward/ReadTutorialKeno?widthImg=" + widthImg,
+    {
+      method: "GET",
+      headers: API_HEADER
+    }
+  );
+}
 export const lottery234 = {
   getLottery123Draw,
   getLottery234Draw,
-  getFee
+  getFee,
+  getTutorial
 };

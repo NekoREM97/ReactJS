@@ -84,11 +84,15 @@ class Payment extends React.Component {
           value = this.checkNumber(dataPay);
           this.setState({ show: 2 });
         } else if (this.props.location.payload.productID === 6 ||
-          this.props.location.payload.productID === 7
+          this.props.location.payload.productID === 7 || 
+          this.props.location.payload.productID === 8 ||
+          this.props.location.payload.productID === 9
         ) {
           value = this.checkNumberKeno(dataPay);
           this.setState({show: 2});
           if (this.props.location.payload.productID === 6) { this.setState({ show: 1 }); }
+          if (this.props.location.payload.productID === 8) { this.setState({ show: 1 }); }
+          if (this.props.location.payload.productID === 9) { this.setState({ show: 1 }); }
         } else {
           value = this.checkNumberMegaNPower(dataPay);
           this.setState({ show: 2 });
@@ -1844,7 +1848,13 @@ class Payment extends React.Component {
           <Flex>
             <Button
               onClick={() => {
-                this.props.onGoBack(this.props.location.payload);
+                if(this.props.location.payload.productID === 8){
+                  this.props.onGoBack234(this.props.location.payload);
+                }else if(this.props.location.payload.productID === 9){
+                  this.props.onGoBack235(this.props.location.payload);
+                }else{
+                  this.props.onGoBack(this.props.location.payload);
+                }
               }}
               style={{
                 width: "50%",
@@ -1894,7 +1904,13 @@ class Payment extends React.Component {
           <Flex>
             <Button
               onClick={() => {
-                this.props.onGoBack(this.props.location.payload);
+                if(this.props.location.payload.productID === 8){
+                  this.props.onGoBack234(this.props.location.payload);
+                }else if(this.props.location.payload.productID === 9){
+                  this.props.onGoBack235(this.props.location.payload);
+                }else{
+                  this.props.onGoBack(this.props.location.payload);
+                }
               }}
               style={{
                 width: "50%",

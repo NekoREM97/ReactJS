@@ -42,13 +42,29 @@ const mapDispatchToProps = (dispatch) => {
               })
             );
           },
-          onGoBack: data => {
-            dispatch(
-              routerRedux.replace({
-                pathname: "/keno",
-                payload: data
-              })
-            );
+        onGoBack: data => {
+          dispatch(
+            routerRedux.replace({
+              pathname: "/keno",
+              payload: data
+            })
+          );
+        },
+        onGoBack234: data => {
+          dispatch(
+            routerRedux.replace({
+              pathname: "/lottery-234",
+              payload: data
+            })
+          );
+        },
+        onGoBack235: data => {
+          dispatch(
+            routerRedux.replace({
+              pathname: "/lottery-235",
+              payload: data
+            })
+          );
         }
     };
 }
