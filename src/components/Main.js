@@ -159,6 +159,12 @@ class Main extends React.Component {
           case 7:
             this.props.onLottery123();
             break;
+          case 8: 
+            this.props.onLottery234();  
+            break;
+          case 9: 
+            this.props.onLottery235();  
+            break;  
           default:
             break;
         }
@@ -584,12 +590,11 @@ class Main extends React.Component {
     return (
       <div
         className={styles.div_button}
-        // onClick={() => {
-        //   this.props.onCheckAddOrder(6);
-        //   this.setState({ productsID: 6 });
-        // }}
-        onClick = {()=>{
-          this.props.onLottery234();
+        onClick={() => {
+          this.props.onCheckAddOrder(8), 
+          this.setState({ 
+            productsID: 8 
+          });
         }}
       >
         <div style={{ display: "flex", padding: "4px 0" }}>
@@ -605,7 +610,7 @@ class Main extends React.Component {
           </div>
           <div className={styles.div_border} />
           <div className={styles.div_group_text}>
-            {this.renderOpenDay(5, 1)}
+            {this.renderOpenDay(7, 1)}
             <div className={styles.div_text_amt} style={{ fontSize: "27pt" }}>
               <span className={styles.span_text}>x</span>1.000
               <span className={styles.span_text}>lần</span>
@@ -617,6 +622,48 @@ class Main extends React.Component {
             src={require("../assets/hoadao.png")}
             alt=""
           />
+        </div>
+      </div>
+    );
+  }
+  renderLottery235(){
+    return (
+      <div
+        className={styles.div_button}
+        onClick={() => {
+          // this.props.onCheckAddOrder(7);
+          // this.setState({ productsID: 7 });
+          this.props.onLottery235();
+        }}
+      >
+        <div style={{ display: "flex", padding: "4px 0" }}>
+          <div>
+            <img
+              className={styles.div_img_dt}
+              src={require("../assets/235.png")}
+              alt=""
+            />
+            <div
+              className={styles.div_img_text}
+              style={{ fontSize: "11pt" }}
+            >
+              <CountDownLottery123 />
+            </div>
+          </div>
+          <div className={styles.div_border} />
+          <img
+            className={styles.div_img_noel1}
+            src={require("../assets/hoadao01.png")}
+            alt=""
+          />
+          <div className={styles.div_group_text}>
+            {this.renderOpenDay(7, 1)}
+            <div className={styles.div_text_amt}>
+              <span className={styles.span_text}>x</span>20.000
+                <span className={styles.span_text}>lần</span>
+            </div>
+            <div className={styles.button_buy}>Đặt vé</div>
+          </div>
         </div>
       </div>
     );
@@ -971,6 +1018,7 @@ class Main extends React.Component {
             <div style={{ paddingTop: 10, marginTop: -50 }}>
               {this.renderKenoOrBanner()}
               {this.renderLottery234()}
+              {this.renderLottery235()}
               {/* {this.renderKeno()} */}
               {/* {this.renderBanner()} */}
               {this.renderProduct()}

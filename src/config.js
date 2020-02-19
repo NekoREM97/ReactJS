@@ -7,11 +7,11 @@
 // export const URL_API = 'https://coreapi.mobilott.vn/';
 // export const URL_IMAGE = 'https://app.mobilott.vn/Assets/Images/';
 
-export const URL_API = "https://coreapi.123win.vn/";
-export const URL_IMAGE = "https://appapi.123win.vn/Assets/Images/";
+// export const URL_API = "https://coreapi.123win.vn/";
+// export const URL_IMAGE = "https://appapi.123win.vn/Assets/Images/";
 
-// export const URL_IMAGE = 'http://124.158.6.19:81/';
-// export const URL_API = 'http://124.158.6.19:82/';
+export const URL_IMAGE = 'http://124.158.6.19:81/';
+export const URL_API = 'http://124.158.6.19:82/';
 
 export const API_HEADER = {
     'Accept': 'application/json',

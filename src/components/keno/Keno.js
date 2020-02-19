@@ -2768,7 +2768,7 @@ class Keno extends React.Component {
         const data = {};
         data.ProductID = this.state.productID;
         data.MerchantID = localStorage.getItem("merchant_id");
-        data.Amount = this.state.totalAmountParity
+        data.Amount = this.state.totalAmountParity;
         this.props.onGetFee(data);
       }
     }

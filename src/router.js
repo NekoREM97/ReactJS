@@ -40,6 +40,9 @@ import Lottery123Page from "./routes/product/Lottery123Page";
 import Lottery123AcceptPage from "./routes/product/Lottery123AcceptPage";
 import Lottery234Page from "./routes/product/Lottery234Page";
 import Lottery234AcceptPage from "./routes/product/Lottery234AcceptPage";
+import Lottery234TutorialPage from "./routes/product/Lottery234TutorialPage";
+import Lottery235Page from "./routes/product/Lottery235Page";
+import Lottery235AcceptPage from "./routes/product/Lottery235AcceptPage";
 import { API_HEADER } from "./config";
 import qs from "query-string-es5";
 import crypto from "crypto";
@@ -97,7 +100,10 @@ function RouterConfig({ history }) {
         <PrivateRoute path="/lottery-123" exact component={Lottery123Page} />
         <PrivateRoute path="/lottery-123-ac" exact component={Lottery123AcceptPage} />
         <PrivateRoute path="/lottery-234" exact component={Lottery234Page} />
-        <PrivateRoute path="/lottery-234-ac"exact component={Lottery234AcceptPage} />
+        <PrivateRoute path="/lottery-234-ac" exact component={Lottery234AcceptPage} />
+        <PrivateRoute path="/lottery-234-tutorial"exact component={Lottery234TutorialPage} />
+        <PrivateRoute path="/lottery-235" exact component={Lottery235Page} />
+        <PrivateRoute path="/lottery-235-ac" exact component={Lottery235AcceptPage} />
         <PrivateRoute path="/keno" exact component={KenoPage} />
         <PrivateRoute path="/kenoaccept" exact component={KenoAcceptPage} />
         <PrivateRoute path="/keno-tutorial" exact component={KenoTutorialPage} />

@@ -15,6 +15,7 @@ app.model(require('./models/max3d').default);
 app.model(require('./models/max3dplus').default);
 app.model(require('./models/main').default);
 app.model(require("./models/lottery123").default);
+// app.model(require('./models/lottery234').default);
 app.model(require("./models/keno").default);
 app.model(require('./models/max4d').default);
 app.model(require('./models/mega645').default);

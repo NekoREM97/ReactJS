@@ -69,19 +69,21 @@ class Lottery234 extends React.Component {
       modalType: "",
       modal: false,
       totalAmount: 0,
-      productID: 7, 
-      bagitem: 4
+      productID: 8, 
+      bagitem: 4,
+      tutorialLottery234: "",
+      tabIndex: 1
     };
   }
 
-  // componentWillMount() {
-  //   if (
-  //     this.props.location.payload !== undefined &&
-  //     this.props.location.payload !== null
-  //   ) {
-  //     this.setState(this.props.location.payload);
-  //   }
-  // }
+  componentWillMount() {
+    if (
+      this.props.location.payload !== undefined &&
+      this.props.location.payload !== null
+    ) {
+      this.setState(this.props.location.payload);
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.response !== undefined) {
@@ -106,6 +108,16 @@ class Lottery234 extends React.Component {
         Toast.info("Không tải được thông tin kỳ mở thưởng", 5);
         this.props.onBack();
       }
+    }
+    if (nextProps.fee !== undefined && nextProps.fee.data !== undefined) {
+      if (nextProps.fee.data.Code == "00") {
+        this.props.onPayment(this.state, nextProps.fee.data.Value);
+      } else {
+        Toast.info("Lỗi tính phí", 2);
+      }
+    }
+    if (nextProps.err !== undefined) {
+      Toast.info("Lỗi kết nối", 2);
     }
   }
   isCheckNumber = (type) => {
@@ -835,7 +847,6 @@ class Lottery234 extends React.Component {
       default:
         break;
     }
-
     this.setState({
       modalType: "",
       [key]: false
@@ -849,7 +860,51 @@ class Lottery234 extends React.Component {
     });
   };
 
+  // checkPay() {
+  //   if (
+  //     this.state.aIsCheck ||
+  //     this.state.bIsCheck ||
+  //     this.state.cIsCheck ||
+  //     this.state.dIsCheck ||
+  //     this.state.eIsCheck
+  //   ) {
+  //     this.props.onAccept(this.state);
+  //   }
+  // }
   checkPay() {
+    //this.props.onPayment();
+    // if (this.state.tabIndex == 1) {
+    //   if (
+    //     (this.state.aIsCheck || this.state.bIsCheck || this.state.cIsCheck || this.state.dIsCheck || this.state.eIsCheck) &&
+    //     this.state.system > 0 ) {
+    //     const data = {};
+    //     data.ProductID = this.state.productID;
+    //     data.MerchantID = localStorage.getItem("merchant_id");
+    //     data.Amount = this.state.totalAmount;
+    //     this.props.onGetFee(data);
+    //   }
+    // } else if (this.state.tabIndex == 2) {
+    //   if (
+    //     this.state.isEvenNumberA ||
+    //     this.state.isOddNumberA ||
+    //     this.state.isBigNumberA ||
+    //     this.state.isSmallNumberA ||
+    //     this.state.isEvenNumberB ||
+    //     this.state.isOddNumberB ||
+    //     this.state.isBigNumberB ||
+    //     this.state.isSmallNumberB ||
+    //     this.state.isEvenNumberC ||
+    //     this.state.isOddNumberC ||
+    //     this.state.isBigNumberC ||
+    //     this.state.isSmallNumberC
+    //   ) {
+    //     const data = {};
+    //     data.ProductID = this.state.productID;
+    //     data.MerchantID = localStorage.getItem("merchant_id");
+    //     data.Amount = this.state.totalAmountParity;
+    //     this.props.onGetFee(data);
+    //   }
+    // }
     if (
       this.state.aIsCheck ||
       this.state.bIsCheck ||
@@ -857,7 +912,12 @@ class Lottery234 extends React.Component {
       this.state.dIsCheck ||
       this.state.eIsCheck
     ) {
-      this.props.onAccept(this.state);
+      const data = {};
+      data.ProductID = this.state.productID;
+      data.MerchantID = localStorage.getItem("merchant_id");
+      data.Amount = this.state.totalAmount;
+      console.log("a",data);
+      this.props.onGetFee(data);
     }
   }
   RandomAllButton = () => {
@@ -926,27 +986,31 @@ class Lottery234 extends React.Component {
             </Flex.Item>
           </Flex>
         </div>
-        <div className={styles1.buttonRandom} onClick={() => this.randomFast()}>
+        <Flex>
+          <Button style={{ background: ColorButton, color: "#FFFFFF", width: "100%", marginLeft: 8, marginRight: 8, height: 40, lineHeight: 2 }} onClick={() => this.randomFast()}>
+              <Text>Chọn nhanh</Text>
+          </Button>
+        </Flex>
+        {/* <div className={styles1.buttonRandom} onClick={() => this.randomFast()}>
           <div>CHỌN NHANH</div>
-        </div>
-        <div
-          className={styles1.buttonRandom}
-          onClick={() => this.randomAll()}
-        >
-          <Flex>
-            {this.RandomAllButton()}
-          </Flex>
-        </div>
+        </div> */}
+        <WhiteSpace />
+        <Flex>
+          {this.RandomAllButton()}
+        </Flex>
         <div
           className={styles1.primary_btn}
           style={{ marginBottom: 8, marginLeft: 8, marginRight: 8 }}
-          onClick={() => this.checkPay()}
+          onClick={() => {
+            this.checkPay();
+            console.log("Click đặt vé");
+          }}
         >
-          <div>ĐẶT VÉ</div>
+          <Text style={{ fontWeight: "bold" }}>ĐẶT VÉ</Text>
         </div>
         <div
             className={styles2.tutorial}
-            onClick={() => this.props.onTutorial(this.state.tutorialKeno)}
+            onClick={() => this.props.onTutorial(this.state.tutorialLottery234)}
           >
             <span style={{ borderBottom: "1px solid #4397f7" }}>
               Hướng dẫn cách chơi
