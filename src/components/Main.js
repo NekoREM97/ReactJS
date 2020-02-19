@@ -596,7 +596,7 @@ class Main extends React.Component {
           <div>
             <img
               className={styles.div_img}
-              src={require("../assets/Lottery234.PNG")}
+              src={require("../assets/lottery_234.png")}
               alt=""
             />
             <div className={styles.div_img_text} style={{ fontSize: "11pt" }}>
