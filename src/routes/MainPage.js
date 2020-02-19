@@ -20,14 +20,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      onLottery123: () => {
-        dispatch(routerRedux.push({ pathname: "/lottery-123" }));
-      },
       onKeno: () => {
         dispatch(routerRedux.push({ pathname: "/keno" }));
       },
+      onLottery123: () => {
+        dispatch(routerRedux.push({ pathname: "/lottery-123" }));
+      },
       onLottery234: () => {
         dispatch(routerRedux.push({ pathname: "/lottery-234" }));
+      },
+      onLottery235: () => {
+        dispatch(routerRedux.push({ pathname: "/lottery-235" }));
       },
       onMax4D: () => {
         dispatch(routerRedux.push({ pathname: "/max4d" }));

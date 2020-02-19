@@ -7,7 +7,21 @@ function* getLottery123Draw() {
     headers: API_HEADER
   });
 }
-
-export const lottery = {
-  getLottery123Draw
+function* getLottery234Draw() {
+  return yield request("LotteryResult/GetLottery234Draw", {
+    method: "GET",
+    headers: API_HEADER
+  });
+}
+function* getFee(data) {
+  return yield request("Order/GetFee", {
+    method: "POST",
+    headers: API_HEADER,
+    body: JSON.stringify(data)
+  });
+}
+export const lottery234 = {
+  getLottery123Draw,
+  getLottery234Draw,
+  getFee
 };

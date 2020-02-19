@@ -1,4 +1,4 @@
-import Lottery234Accept from "../../components/xsdt234/Lottery234Accept";
+import Lottery235Accept from "../../components/xsdt235/Lottery235Accept";
 import { connect } from "dva";
 import { routerRedux } from "dva/router";
 
@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
      onGoBack: data => {
         dispatch(
           routerRedux.replace({
-            pathname: "/lottery-234",
+            pathname: "/lottery-235",
             payload: data
           })
         );
@@ -33,8 +33,8 @@ const mapDispatchToProps = dispatch => {
       }
     }
 };
-const Lottery234AcceptPage = connect(
+
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Lottery234Accept);
-export default Lottery234AcceptPage;
+)(Lottery235Accept);
