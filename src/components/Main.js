@@ -159,9 +159,12 @@ class Main extends React.Component {
           case 7:
             this.props.onLottery123();
             break;
-          case 9: 
+          case 8: 
             this.props.onLottery234();  
             break;
+          case 9: 
+            this.props.onLottery235();  
+            break;  
           default:
             break;
         }
@@ -588,9 +591,9 @@ class Main extends React.Component {
       <div
         className={styles.div_button}
         onClick={() => {
-          this.props.onCheckAddOrder(9), 
+          this.props.onCheckAddOrder(8), 
           this.setState({ 
-            productsID: 9 
+            productsID: 8 
           });
         }}
       >

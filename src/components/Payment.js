@@ -828,7 +828,9 @@ class Payment extends React.Component {
       else this.props.onPaymentKeno(this.dataKenoParity());
     } else if (this.state.data.productID === 7) {
         this.props.onPayment(this.dataLottery123());
-    } else {
+    } else if (this.state.data.productID === 8) {
+      this.props.onPayment(this.dataLottery234());
+    }else {
       this.props.onPayment(this.dataMega());
     }
   };
@@ -1234,7 +1236,87 @@ class Payment extends React.Component {
     ).toString();
     return data;
   }
+  dataLottery234() {
+    let data = {};
+    let oderItem = [];
+    data.SourceChannel = CryptoJS.SHA256(SOURCE_CHANNEL)
+      .toString()
+      .toUpperCase();
+    data.MerchantID = localStorage.getItem("merchant_id");
+    data.TransCategory = 1;
+    data.ProductID = this.state.data.productID;
+    data.Quantity = this.state.data.system;
+    data.Price = this.state.amount;
+    data.Fee = this.state.feeAmount + this.state.feeCollectAmount;
+    data.Amount = this.state.totalAmount;
+    data.FullName = this.state.name;
+    data.Desc = "Mua vé điện toán 234";
+    data.MobileNumber = this.state.mobileNumber;
+    data.DeliveryType = this.state.feePOS ? "S" : "D";
+    data.PIDNumber = this.state.pidNumber;
+    data.EmailAddress = this.state.email;
+    data.ProvinceID = this.state.provinceID;
+    data.DistrictID = this.state.districtID;
+    data.WardID = this.state.wardID;
+    data.Street = this.state.street;
 
+    let items = [];
+
+    for (let i = 0; i < this.state.data.system; i++) {
+      console.log(this.state.data.systemInit, i);
+      let item = {};
+      item.DrawCode = this.state.data.systemInit[i].DrawCode;
+      item.DrawDate = this.state.data.systemInit[i].DrawDate;
+
+      item.ProductID = this.state.data.productID;
+      item.Price = 0;
+
+      if (this.state.data.aIsCheck) {
+        item.LineA = this.state.data.aNumber.join(",");
+        item.PriceA = this.state.data.aAmount;
+        item.Price = this.state.data.aAmount;
+      }
+
+      if (this.state.data.bIsCheck) {
+        item.LineB = this.state.data.bNumber.join(",");
+        item.PriceB = this.state.data.bAmount;
+        item.Price += this.state.data.bAmount;
+      }
+
+      if (this.state.data.cIsCheck) {
+        item.LineC = this.state.data.cNumber.join(",");
+        item.PriceC = this.state.data.cAmount;
+        item.Price += this.state.data.cAmount;
+      }
+
+      if (this.state.data.dIsCheck) {
+        item.LineD = this.state.data.dNumber.join(",");
+        item.PriceD = this.state.data.dAmount;
+        item.Price += this.state.data.dAmount;
+      }
+
+      if (this.state.data.eIsCheck) {
+        item.LineE = this.state.data.eNumber.join(",");
+        item.PriceE = this.state.data.eAmount;
+        item.Price += this.state.data.eAmount;
+      }
+
+      items.push(item);
+    }
+    data.Items = items;
+
+    data.Signature = CryptoJS.SHA256(
+      API_KEY +
+      data.SourceChannel +
+      data.MobileNumber +
+      data.Quantity +
+      data.Amount +
+      data.FullName +
+      data.PIDNumber +
+      this.state.token
+    ).toString();
+    return data;
+  }
   dataMax3dPlus() {
     let data = {};
     let oderItem = [];

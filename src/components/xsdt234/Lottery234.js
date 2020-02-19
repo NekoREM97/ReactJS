@@ -69,7 +69,7 @@ class Lottery234 extends React.Component {
       modalType: "",
       modal: false,
       totalAmount: 0,
-      productID: 9, 
+      productID: 8, 
       bagitem: 4,
       tutorialLottery234: "",
       tabIndex: 1
@@ -108,6 +108,16 @@ class Lottery234 extends React.Component {
         Toast.info("Không tải được thông tin kỳ mở thưởng", 5);
         this.props.onBack();
       }
+    }
+    if (nextProps.fee !== undefined && nextProps.fee.data !== undefined) {
+      if (nextProps.fee.data.Code == "00") {
+        this.props.onPayment(this.state, nextProps.fee.data.Value);
+      } else {
+        Toast.info("Lỗi tính phí", 2);
+      }
+    }
+    if (nextProps.err !== undefined) {
+      Toast.info("Lỗi kết nối", 2);
     }
   }
   isCheckNumber = (type) => {
@@ -902,7 +912,12 @@ class Lottery234 extends React.Component {
       this.state.dIsCheck ||
       this.state.eIsCheck
     ) {
-      this.props.onAccept(this.state);
+      const data = {};
+      data.ProductID = this.state.productID;
+      data.MerchantID = localStorage.getItem("merchant_id");
+      data.Amount = this.state.totalAmount;
+      console.log("a",data);
+      this.props.onGetFee(data);
     }
   }
   RandomAllButton = () => {

@@ -25,10 +25,12 @@ import { routerRedux } from "dva/router";
 const mapStateToProps = state => {
   return {
     // err:state.keno.err
-    drawCodeKeno: state.keno.drawCodeKeno,
-    tutorialKeno: state.keno.tutorialKeno,
-    fee: state.keno.fee,
-    err: state.payment.err
+    // drawCodeKeno: state.keno.drawCodeKeno,
+    // tutorialKeno: state.keno.tutorialKeno,
+    response: state.lottery123.data,
+    err: state.lottery123.err,
+    fee: state.keno.fee
+    // err: state.payment.err
   };
 };
 
@@ -48,18 +50,15 @@ const mapDispatchToProps = dispatch => {
         routerRedux.push({ pathname: "/lottery-234-tutorial", message: message })
       );
     },
-    onPayment: data => {
-      dispatch(routerRedux.push({ pathname: "/payment", payload: data }));
+    onPayment: (data, fee) => {
+      dispatch(
+        routerRedux.replace({
+          pathname: "/payment",
+          payload: data,
+          fee: fee
+        })
+      );
     },
-    // onPayment: (data, fee) => {
-    //   dispatch(
-    //     routerRedux.push({
-    //       pathname: "/payment",
-    //       payload: data,
-    //       fee: fee
-    //     })
-    //   );
-    // },
     onGetFee: data => {
       dispatch({ type: "keno/getFee", payload: data });
     }
